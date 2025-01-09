@@ -38,18 +38,25 @@ void Entity::setColor(const Color& c) {
 @param SDL_Renderer is a render object in SDL2 which responds to 2D graphics to the screen
 
 */
-void Entity::draw(SDL_Renderer* renderer){
-    if(!renderer){
-        std::cerr << "Failed to create renderer: "<< SDL_GetError() << std::endl;
-        
-        // default drawing for any entity
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_Rect defaultRect = {100, 100, width, height}; // position and size 
-        SDL_RenderFillRect(renderer, &defaultRect);
+void Entity::draw(SDL_Renderer* renderer) {
+    if (!renderer) {
+        std::cerr << "Failed to create renderer: " << SDL_GetError() << std::endl;
         return;
-    }else{
-        SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-        SDL_Rect rect = {100, 100, width, height}; // Default position and size
-        SDL_RenderFillRect(renderer, &rect);    
+    }
+
+    // Draw a red circle (generic entity)
+    int centerX = 512; // Example center
+    int centerY = 960; // Example center
+    int radius = width / 2; // Use width as diameter
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    for (int w = 0; w < radius * 2; w++) {
+        for (int h = 0; h < radius * 2; h++) {
+            int dx = radius - w; // Horizontal offset
+            int dy = radius - h; // Vertical offset
+            if ((dx * dx + dy * dy) <= (radius * radius)) {
+                SDL_RenderDrawPoint(renderer, centerX + dx, centerY + dy);
+            }
+        }
     }
 }

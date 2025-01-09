@@ -1,5 +1,9 @@
-#include <SDL2/SDL.h>
-#include <iostream>
+#include <SDL2/SDL.h>           // SDL core library for rendering
+#include <SDL2/SDL_image.h>     // SDL_image for handling images
+#include <iostream>             
+#include "Player.h"             
+#include "Entity.h"             
+#include "GameBoard.h"          
 
 int main() {
     // Initialize SDL
@@ -10,11 +14,11 @@ int main() {
 
     // Create a window
     SDL_Window* window = SDL_CreateWindow(
-        "SDL Window",
+        "Game Board",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        1024, 1200,
-        SDL_WINDOW_SHOWN
+        1024, 1200,          // Width and height of the window
+        SDL_WINDOW_SHOWN     // Display the window
     );
 
     if (!window) {
@@ -25,6 +29,12 @@ int main() {
 
     // Create a renderer
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return -1;
+    }
 
     // Main loop
     bool running = true;
@@ -37,13 +47,12 @@ int main() {
         }
 
         // Clear the screen
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black background
         SDL_RenderClear(renderer);
 
-        // Draw a red rectangle
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_Rect rect = {100, 100, 200, 200};
-        SDL_RenderFillRect(renderer, &rect);
+        
+        Player player(50, 50, "", renderer); // Passing renderer
+        player.draw(renderer); // Draw the player
 
         SDL_RenderPresent(renderer);
     }
@@ -55,4 +64,3 @@ int main() {
 
     return 0;
 }
-
