@@ -3,6 +3,8 @@
 
 
 GameBoard::GameBoard(){
+    Width = 1024;
+    Height = 1200;
 }
 
 int GameBoard::getWidth() const{

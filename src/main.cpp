@@ -13,7 +13,7 @@ int main() {
         "SDL Window",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        800, 600,
+        1024, 1200,
         SDL_WINDOW_SHOWN
     );
 
