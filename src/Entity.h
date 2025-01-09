@@ -1,6 +1,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <cstdint> // For uint8_t type
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 // Define the Color struct
 struct Color {
@@ -13,7 +15,7 @@ private:
 int width;
 int height;
 Color color;
-void draw();
+
 
 public:
 // Constructor 
@@ -28,6 +30,7 @@ void setHeight(int height);
 // Getters and setters for color
 Color getColor() const;
 void setColor(const Color& color);
+virtual void draw(SDL_Renderer* renderer);
 
 };
 #endif
