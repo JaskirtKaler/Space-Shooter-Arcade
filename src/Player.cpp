@@ -26,7 +26,7 @@ Player::~Player() {
 // Override draw method
 void Player::draw(SDL_Renderer* renderer) {
     if (texture) {
-        SDL_Rect rect = {100, 100, width, height}; // Position and size
+        SDL_Rect rect = {100, 100, getWidth(), getHeight()}; // Position and size
         SDL_RenderCopy(renderer, texture, nullptr, &rect);
     } else {
         // Fallback to default draw if texture is missing
